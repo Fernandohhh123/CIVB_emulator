@@ -10,6 +10,13 @@ void get_arguments(Arguments *arguments, int *argc, char *argv[]){
             ++i;
             arguments->program_path = argv[i];
         }
+        else if(strcmp("--show_registers", argv[i]) == 0){
+            arguments->show_registers = true;
+        }
+        else{
+            arguments->step = false;
+            arguments->show_registers = false;    
+        }
 
 
     }

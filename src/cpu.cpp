@@ -1,5 +1,7 @@
 #include "../include/cpu.hpp"
 #include <stdio.h>
+#include <cstdlib>
+#include "../include/control_unity.hpp"
 
 
 constexpr uint8_t FLAG_ZERO = (1 << 0);
@@ -42,4 +44,23 @@ void cpu_reset(CPU *cpu){
     cpu->outb = 0;
     cpu->jmp = 0;
     cpu->opcode = 0;
+}
+
+
+void main_loop(CPU *cpu, ROM *rom){    
+    while(1){
+
+        fetch_cycle(cpu, rom);
+        
+        execute_instruction(cpu);
+        
+        printf("b: %x ", cpu->outb);
+        printf("a: %x\n", cpu->outa);
+
+        //getchar();
+
+        if(rom->address >= rom->program_instructions.size()){
+            exit(0);
+        }    
+    }
 }

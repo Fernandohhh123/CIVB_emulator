@@ -1,6 +1,7 @@
 #include "../include/control_unity.hpp"
 #include "../include/opcode.hpp"
 #include "../include/cpu.hpp"
+#include "../include/rom.hpp"
 #include <iostream>
 
 void execute_instruction(CPU *cpu){
@@ -57,4 +58,10 @@ void execute_instruction(CPU *cpu){
     if(cpu->jmp == 0){
         ++cpu->pc;
     }
+}
+
+void fetch_cycle(CPU *cpu, ROM *rom){
+        rom->address = cpu->pc;
+        cpu->rom_buffer = (rom->program_instructions[rom->address] & 0x0F);
+        cpu->opcode = rom->program_instructions[rom->address] >> 4;
 }
