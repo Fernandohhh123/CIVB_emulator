@@ -16,7 +16,7 @@ void execute_instruction(CPU *cpu){
             cpu->acc = add(&cpu->acc, &cpu->rom_buffer, &cpu->flags);
         break;
         case static_cast<uint8_t>(Instruction::LDA):
-            cpu->acc = cpu->opcode;
+            cpu->acc = cpu->rom_buffer;
         break;
         case static_cast<uint8_t>(Instruction::OUTA):
             cpu->outa = cpu->acc;

@@ -16,7 +16,6 @@
 //0x0F operando
 //0xF0 opcode
 
-
 int main(int argc, char *argv[]){
 
     CPU cpu;
@@ -24,12 +23,10 @@ int main(int argc, char *argv[]){
     Arguments arguments;
 
     get_arguments(&arguments, &argc, argv);
-
-    //std::cout << arguments.program_path << std::endl;
     
     cpu_reset(&cpu);
     rom.program_instructions = get_program_code(arguments.program_path);
-    main_loop(&cpu, &rom);
+    main_loop(&cpu, &rom, &arguments);
 
     return 0;
 }
