@@ -8,3 +8,4 @@ typedef struct{
 }Arguments;
 
 void get_arguments(Arguments*, int*, char*argv[]);
+void init_arguments(Arguments*);

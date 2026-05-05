@@ -14,7 +14,7 @@ uint8_t add(uint8_t* a, uint8_t* b, uint8_t *flags){
     //acualizamos las flags
     if((resultado >> 4) > 0){
         resultado = (resultado & 0x0F);
-        
+
         // 2 = 00000010
         *flags = *flags | 2;
     } else {
@@ -64,44 +64,21 @@ void show_flags(uint8_t *flags){
     }
 }
 
+
+//Loop principal para que funcione el cpu
 void main_loop(CPU *cpu, ROM *rom, Arguments *arguments){
-        
+
     while(1){
-        
-        if(arguments->show_registers){
-            printf("FLAGS: ");
-            show_flags(&cpu->flags);
-            printf("\n");
-            
-            printf("PC: %x\n", cpu->pc);
-            printf("ACC: %x\n", cpu->acc);
-            printf("OUTA: %x\n", cpu->outa);
-            printf("OUTB: %x\n", cpu->outb);
-            printf("INA: %x\n", cpu->ina);
-            printf("RA: %x\n", cpu->ra);
-            printf("RD: %x\n", cpu->rd);
-            printf("\n");
-        }
-        else{
-            printf("PC: %d\n", cpu->pc);
-            printf("b: %x ", cpu->outb);
-            printf("a: %x\n", cpu->outa);
-            printf("\n");
-        }
-        
-        if(arguments->step){
-            printf("ENTER para continuar...\n");
-            getchar();
-           
-        }
 
+		//la salida la tengo pensada asi:
+		//output(cpu)
+
+		//bucle principal del cpu
         fetch_cycle(cpu, rom);
-        
         execute_instruction(cpu);
-
         if(rom->address >= rom->program_instructions.size()){
             exit(0);
-        }    
-    }
+        }
 
+    }
 }

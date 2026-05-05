@@ -4,9 +4,16 @@
 #include "../include/argument_parser.hpp"
 
 void get_arguments(Arguments *arguments, int *argc, char *argv[]){
-    for(int i = 0; i < *argc; i++){
-        
-        //std::cout << argv[i] << std::endl;//debug
+
+	if(*argv == NULL){
+		printf("Faltan argumentos \n");
+	}
+
+	init_arguments(arguments);
+
+    for(int i = 1; i < *argc; i++){
+
+        std::cout << argv[i] << std::endl; //debug
         if(strcmp("--program", argv[i]) == 0){
             i++;
             arguments->program_path = argv[i];
@@ -20,14 +27,16 @@ void get_arguments(Arguments *arguments, int *argc, char *argv[]){
             arguments->step = true;
         }
 
-        else if(strcmp("--show_registers", argv[i]) == 0){
-            arguments->show_registers = true;
-        }
-
         else{
-            arguments->step = false;
-            arguments->show_registers = false;    
+			printf("Argumento: '%s' invalido \n", argv[i]);
+
+			exit(1);
         }
 
     }
+}
+
+void init_arguments(Arguments *arguments){
+	arguments->step = false;
+	arguments->show_registers = false;
 }
