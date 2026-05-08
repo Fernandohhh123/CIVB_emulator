@@ -16,7 +16,7 @@ Layout create_layout(int h, int w){
 	layout.box_registers_title = {start_layout_x,
 								  layout.box_title.h - 1,
 								  3,
-								  23};
+								  28};
 
 	layout.box_registers = {start_layout_x,
 							layout.box_title.h + layout.box_registers_title.h - 2,

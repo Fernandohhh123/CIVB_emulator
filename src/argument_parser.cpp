@@ -6,7 +6,7 @@
 void get_arguments(Arguments *arguments, int *argc, char *argv[]){
 
 	if(*argv == NULL){
-		printf("Faltan argumentos \n");
+		return;
 	}
 
 	init_arguments(arguments);
@@ -27,8 +27,13 @@ void get_arguments(Arguments *arguments, int *argc, char *argv[]){
             arguments->step = true;
         }
 
+		else if((strcmp("-v", argv[i]) == 0) || (strcmp("--version", argv[i]) == 0 )){
+			printf("alpha\n");
+			exit(0);
+		}
+
         else{
-			printf("Argumento: '%s' invalido \n", argv[i]);
+			//printf("Argumento: '%s' invalido \n", argv[i]);
 
 			exit(1);
         }

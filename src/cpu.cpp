@@ -63,22 +63,3 @@ void show_flags(uint8_t *flags){
         printf("CZ");
     }
 }
-
-
-//Loop principal para que funcione el cpu
-void main_loop(CPU *cpu, ROM *rom, Arguments *arguments){
-
-    while(1){
-
-		//la salida la tengo pensada asi:
-		//output(cpu)
-
-		//bucle principal del cpu
-        fetch_cycle(cpu, rom);
-        execute_instruction(cpu);
-        if(rom->address >= rom->program_instructions.size()){
-            exit(0);
-        }
-
-    }
-}

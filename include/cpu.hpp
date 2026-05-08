@@ -26,6 +26,5 @@ uint8_t add(uint8_t*, uint8_t*, uint8_t*);
 uint8_t nand(uint8_t*, uint8_t*, uint8_t*);
 
 void cpu_reset(CPU*cpu);
-void main_loop(CPU*,ROM*, Arguments*);
 void fetch_cycle(CPU *cpu);
 void show_flags(uint8_t*);
