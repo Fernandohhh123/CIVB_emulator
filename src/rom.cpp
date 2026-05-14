@@ -4,27 +4,22 @@
 #include "../include/rom.hpp"
 #include "../include/argument_parser.hpp"
 
-std::vector<uint8_t> get_program_code(char *program_path){
-    //abrimos el archivo para su lectura binaria
-    std::ifstream archivo(program_path, std::ios::binary | std::ios::ate);
 
-    if(!archivo.is_open()){
-        std::cerr << "No se pudo abrir el programa." << std::endl;
-    }
 
-    std::streamsize tamanio = archivo.tellg();
-    archivo.seekg(0, std::ios::beg);
+// Se debe modificar la rom, ya no sera dinamica segun el tamanno del programa
+// sera una memoria estatica de 8kb
+void load_program_to_rom(ROM *rom, char *pgogram_path){
 
-    std::vector<uint8_t> code(tamanio);
+	FILE *program_code = fopen(program_path, "rb");
 
-    if(archivo.read(reinterpret_cast<char*>(code.data()), tamanio)){
-        std::cout << "Programa cargado." << std::endl;
-    }else{
-        std::cerr << "No se pudo cargar el programa a rom." << std::endl;
-    }
+	if(program_code == NULL){
+		perror("No se pudo abrir el archivo: %s", program_path);
+		exit(1);
+	}
 
-    archivo.close();
+	// Vamos al final del archivo para saber su tamanno
+	fseek();
 
-    return code;
+	fread(rom -> );
+
 }
-

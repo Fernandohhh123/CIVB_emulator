@@ -116,12 +116,63 @@ void draw_menu_options(Rect *box_menu){
 // del cpu
 void draw_cpu(CPU *cpu, Rect *box_registers_value){
 
+	int offset = 2;
+
 	gotoxy(box_registers_value->x + 1, box_registers_value->y + 1);
 	//printfFlags
 
+	// Dato de 13 bits
 	gotoxy(box_registers_value->x + 2, box_registers_value->y + 2);
 	printf("%x", cpu->pc);
 
 	gotoxy(box_registers_value->x + 2, box_registers_value->y + 3);
 	printf("%x", cpu->rom_buffer);
+
+	gotoxy(box_registers_value->x + 2, box_registers_value->y + 4);
+	printf("%x", cpu->acc);
+
+	gotoxy(box_registers_value->x + 2, box_registers_value->y + 5);
+	printf("%x", cpu->outa);
+
+	gotoxy(box_registers_value->x + 2, box_registers_value->y + 6);
+	printf("%x", cpu->outb);
+
+	gotoxy(box_registers_value->x + 2, box_registers_value->y + 7);
+	printf("%x", cpu->ina);
+
+	gotoxy(box_registers_value->x + 2, box_registers_value->y + 8);
+	printf("%x", cpu->ra);
+
+	gotoxy(box_registers_value->x + 2, box_registers_value->y + 9);
+	printf("%x", cpu->rd);
+
+	gotoxy(box_registers_value->x + 2, box_registers_value->y + 10);
+	printf("%x", cpu->acc);
+
+	draw_flags(cpu, box_registers_value);
+}
+
+#define NO_FLAG 0
+#define Z_FLAG 1
+#define C_FLAG 2
+#define CZ_FLAG 3
+
+void draw_flags(CPU *cpu, Rect *box_registers_value){
+
+	if(cpu -> flags == NO_FLAG){
+		gotoxy(box_registers_value->x + 2, box_registers_value->y + 1);
+		printf("..");
+	} else if(cpu -> flags == Z_FLAG){
+		gotoxy(box_registers_value->x + 2, box_registers_value->y + 1);
+		printf(".Z");
+	} else if(cpu -> flags == C_FLAG){
+		gotoxy(box_registers_value->x + 2, box_registers_value->y + 1);
+		printf("C.");
+	} else if(cpu -> flags == CZ_FLAG){
+		gotoxy(box_registers_value->x + 2, box_registers_value->y + 1);
+		printf("CZ");
+	} else {
+		gotoxy(box_registers_value->x + 2, box_registers_value->y + 1);
+		printf("??");
+	}
 }

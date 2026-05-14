@@ -47,6 +47,8 @@ void cpu_reset(CPU *cpu){
     cpu->jmp = 0;
     cpu->opcode = 0;
     cpu->flags = 0;
+	cpu->rom_buffer = 0;
+	cpu->acc = 0;
 }
 
 void show_flags(uint8_t *flags){

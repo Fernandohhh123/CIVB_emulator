@@ -20,3 +20,5 @@ void draw_registers(Rect*);
 void draw_menu_options(Rect*);
 
 void draw_cpu(CPU*, Rect*);
+
+void draw_flags(CPU*, Rect*);
