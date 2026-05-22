@@ -13,8 +13,8 @@ void get_arguments(Arguments *arguments, int *argc, char *argv[]){
 
     for(int i = 1; i < *argc; i++){
 
-        std::cout << argv[i] << std::endl; //debug
-        if(strcmp("--program", argv[i]) == 0){
+        // std::cout << argv[i] << std::endl; //debug
+        if(strcmp("-program", argv[i]) == 0){
             i++;
             arguments->program_path = argv[i];
         }
@@ -28,16 +28,19 @@ void get_arguments(Arguments *arguments, int *argc, char *argv[]){
         }
 
 		else if((strcmp("-v", argv[i]) == 0) || (strcmp("--version", argv[i]) == 0 )){
-			printf("alpha\n");
+			printf("Version: alpha\n");
+			exit(0);
+		}
+
+		else if((strcmp("-h", argv[i]) == 0) || (strcmp("--help", argv[i]) == 0 )){
+			printf("ayuda...\n");
 			exit(0);
 		}
 
         else{
-			//printf("Argumento: '%s' invalido \n", argv[i]);
-
+			printf("Argumento: '%s' invalido \n", argv[i]);
 			exit(1);
         }
-
     }
 }
 
