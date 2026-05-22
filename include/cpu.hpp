@@ -4,7 +4,7 @@
 #include "argument_parser.hpp"
 
 typedef struct{
-    uint16_t pc;
+    uint8_t pc;
     uint8_t rom_buffer; //vamos a usar solamente 4 bits
     uint8_t acc;
     uint8_t outa;
