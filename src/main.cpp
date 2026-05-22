@@ -27,16 +27,16 @@ int main(int argc, char *argv[]){
     ROM rom;
     Arguments arguments;
 	Layout layout;
-	layout = create_layout(20, 60);
+	layout = create_layout(20, 50);
 
 	get_arguments(&arguments, &argc, argv);
+	load_program_to_rom(&rom, arguments.program_path);
 
 	clear_screen();
 	draw_layout(layout);
 	draw_titles(&layout);
 
     cpu_reset(&cpu);
-//  rom.program_instructions = get_program_code(arguments.program_path);
     main_loop(&cpu, &rom, &layout);
 
     return 0;
