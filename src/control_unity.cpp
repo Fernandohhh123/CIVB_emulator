@@ -57,10 +57,6 @@ void execute_instruction(CPU *cpu){
     }
     if(cpu->jmp == 0){
 		++ cpu->pc;
-
-		// Agregamos una proteccion para evitar un desbordamiento
-		//  ya que solo podemos usar 13 bits
-		cpu -> pc = (cpu -> pc & 0xFF);
     }
 }
 
