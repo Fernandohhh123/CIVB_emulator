@@ -1,0 +1,15 @@
+El disenno original del CPU esta basado en el trabajo de
+[Alejabdro Alomar / Computadora de 4 Bits]
+
+Este proyecto es una emulacion lo mas fiel posible al diseño
+fisico del CPU
+
+Este software es desarollado por Fernando Hernandez Valverdes
+
+Caracteristicas del software
+- Emulador del CPU
+- TUI
+- Memoria rom de programa
+- Menu paa interactuar con el mulador
+- Cargar programas personalizados
+- Loop de ejecucion
