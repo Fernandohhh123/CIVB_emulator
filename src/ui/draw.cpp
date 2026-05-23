@@ -79,6 +79,7 @@ void draw_title_left(Rect *box_registers_title, char *title){
 
 void draw_registers(Rect *box_registers){
 	const char *name_registers[] = {"Flags",
+									"DIP_Switch",
 									"PC",
 									"ROM Buffer",
 									"ACC",
@@ -86,8 +87,7 @@ void draw_registers(Rect *box_registers){
 									"OUTB",
 									"INA",
 									"RA",
-									"RD",
-									"DIP Switch"};
+									"RD"};
 
 	int arr_len = sizeof(name_registers) / sizeof(name_registers[0]);
 
@@ -121,33 +121,30 @@ void draw_cpu(CPU *cpu, Rect *box_registers_value){
 	gotoxy(box_registers_value->x + 1, box_registers_value->y + 1);
 	//printfFlags
 
-	// Dato de 13 bits
-	gotoxy(box_registers_value->x + 2, box_registers_value->y + 2);
-	printf("%x", cpu->pc);
-
+	// Dato de 8 bits
 	gotoxy(box_registers_value->x + 2, box_registers_value->y + 3);
-	printf("%x", cpu->rom_buffer);
+	printf("%02x", cpu->pc);
 
 	gotoxy(box_registers_value->x + 2, box_registers_value->y + 4);
-	printf("%x", cpu->acc);
+	printf("%x", cpu->rom_buffer);
 
 	gotoxy(box_registers_value->x + 2, box_registers_value->y + 5);
-	printf("%x", cpu->outa);
+	printf("%x", cpu->acc);
 
 	gotoxy(box_registers_value->x + 2, box_registers_value->y + 6);
-	printf("%x", cpu->outb);
+	printf("%x", cpu->outa);
 
 	gotoxy(box_registers_value->x + 2, box_registers_value->y + 7);
-	printf("%x", cpu->ina);
+	printf("%x", cpu->outb);
 
 	gotoxy(box_registers_value->x + 2, box_registers_value->y + 8);
-	printf("%x", cpu->ra);
+	printf("%x", cpu->ina);
 
 	gotoxy(box_registers_value->x + 2, box_registers_value->y + 9);
-	printf("%x", cpu->rd);
+	printf("%x", cpu->ra);
 
 	gotoxy(box_registers_value->x + 2, box_registers_value->y + 10);
-	printf("%x", cpu->acc);
+	printf("%x", cpu->rd);
 
 	draw_flags(cpu, box_registers_value);
 }
@@ -175,4 +172,35 @@ void draw_flags(CPU *cpu, Rect *box_registers_value){
 		gotoxy(box_registers_value->x + 2, box_registers_value->y + 1);
 		printf("??");
 	}
+}
+
+void draw_instructions_address(ROM *rom, Layout *layout){
+	int offset = 1;
+	//gotoxy(layout->box_instructions.x + 2, layout->box_instructions.y + offset);
+
+	for(int i = 0; i < (layout -> box_instructions.h - 2); i++){
+		gotoxy(layout->box_instructions.x + 2, layout->box_instructions.y + offset);
+		printf("%04X", i);
+		++ offset;
+	}
+}
+
+void draw_instructions(ROM *rom, Layout *layout){
+	int offset = 1;
+	//gotoxy(layout->box_instructions.x + 8, layout->box_instructions.y + offset);
+
+	for(int i = 0; i < (layout -> box_instructions.h - 2); i++){
+		gotoxy(layout->box_instructions.x + 8, layout->box_instructions.y + offset);
+		printf("%02X", rom -> program_instructions[i]);
+		++ offset;
+	}
+}
+
+void draw_instruction_pointer(ROM *rom, Layout *layout){
+
+	gotoxy(layout -> box_instructions.x + 11, layout -> box_instructions.y + rom -> address);
+	printf(" ");
+
+	gotoxy(layout -> box_instructions.x + 11, layout -> box_instructions.y + rom -> address + 1);
+	printf("<");
 }

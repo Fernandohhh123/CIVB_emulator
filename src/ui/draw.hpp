@@ -5,6 +5,8 @@ imprimir cosas en la salida estandar
 
 #pragma once
 #include "../../include/cpu.hpp"
+#include "../../include/rom.hpp"
+#include "../../include/io_devices.hpp"
 #include "rect.hpp"
 #include "layout.hpp"
 
@@ -18,7 +20,9 @@ void draw_title_center(Rect*, char*);
 void draw_title_left(Rect*, char*);
 void draw_registers(Rect*);
 void draw_menu_options(Rect*);
-
 void draw_cpu(CPU*, Rect*);
-
 void draw_flags(CPU*, Rect*);
+void draw_instructions_address(ROM*, Layout*);
+void draw_instructions(ROM*, Layout*);
+void draw_io_devices_values(IO_Devices*);
+void draw_instruction_pointer(ROM*, Layout*);

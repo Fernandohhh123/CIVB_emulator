@@ -28,7 +28,9 @@ void load_program_to_rom(ROM *rom, char *program_path){
 		exit(1);
 	}
 
-	fread(rom -> program_instructions, sizeof(uint8_t), program_size, program_code);
+	fseek(program_code, 0,SEEK_SET);
+
+	fread(rom -> program_instructions, 1, 8192, program_code);
 
 	fclose(program_code);
 }

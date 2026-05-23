@@ -9,7 +9,7 @@
 typedef struct ROM{
 	size_t rom_size = ROM_SIZE;
 	// Reservamos los 8kb que puede direccionar el PC
-    uint8_t program_instructions [ROM_SIZE] = {0};
+    uint8_t program_instructions [8192] = {0};
     uint16_t address;
     uint8_t output;
 }ROM;
