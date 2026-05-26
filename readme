@@ -13,3 +13,25 @@ Caracteristicas del software
 - Menu paa interactuar con el mulador
 - Cargar programas personalizados
 - Loop de ejecucion
+
+ # Modo de uso #
+
+Tanto el CPU original como el emulador ejecutan binarios planos
+
+ Ejecutar un binario plano:
+-p [programa.bin] | --program [programa.bin]
+
+-v | --version		Muestra la version del software
+
+-h | --help			Muestra nformacion de ayuda
+
+
+ # Como compilar #
+
+Este emulador se escribio solo con c y c++ 17
+
+Simplemente use el makefile del proyecto.
+
+	$ make
+
+El binario del programa se creara en la carpeta
