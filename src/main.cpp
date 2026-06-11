@@ -7,6 +7,8 @@
 #include "../include/argument_parser.hpp"
 #include "../include/control_unity.hpp"
 #include "../include/io_devices.hpp"
+#include "../include/kbhit.hpp"
+#include "ui/menu.hpp"
 #include "ui/rect.hpp"
 #include "ui/draw.hpp"
 #include "ui/layout.hpp"
@@ -20,11 +22,12 @@
 //0xF0 opcode
 
 
-void main_loop(CPU*, ROM*, Layout*);
+void main_loop(cpu::CPU*, ROM*, Layout*);
+void process_input(Menu*, char);
 
 int main(int argc, char *argv[]){
 
-    CPU cpu;
+    cpu::CPU cpu;
     ROM rom;
     Arguments arguments;
 	Layout layout;
@@ -37,7 +40,7 @@ int main(int argc, char *argv[]){
 	draw_layout(layout);
 	draw_titles(&layout);
 
-    cpu_reset(&cpu);
+    cpu::reset(&cpu);
 	rom.address = cpu.pc;
 
 	// ocultar el cursor de la consola
@@ -52,9 +55,12 @@ int main(int argc, char *argv[]){
 }
 
 // bucle principal que conecta todo
-void main_loop(CPU *cpu, ROM *rom, Layout *layout){
+void main_loop(cpu::CPU *cpu, ROM *rom, Layout *layout){
 
 	IO_Devices devices;
+	Menu menu;
+
+    char key = 0;
 
     while(1){
 
@@ -64,15 +70,47 @@ void main_loop(CPU *cpu, ROM *rom, Layout *layout){
 		draw_instructions(rom, layout);
 		draw_instruction_pointer(rom, layout);
 
+		if(kbhit()){
+			process_input(&menu, getchar());
+		}
 
-
-		getchar();
-
-		// Ciclo fetch del cpu
+        // Ciclo fetch del cpu
         fetch_cycle(cpu, rom);
 
-		// Ejecutamos la instruccion
+        // Ejecutamos la instruccion
         execute_instruction(cpu);
 
-    }
+    } // while
+} // main_loop
+
+void process_input(Menu *menu, char key){
+	switch(key){
+		case 'j':
+			next_option(menu);
+		break;
+
+		case 'k':
+			prev_option(menu);
+		break;
+
+		case 'l':
+			// procesamos la opcion
+		break;
+
+		case 's':
+			menu -> state = STATE_STEP;
+		break;
+
+		case 'r':
+			menu -> state = STATE_RESET;
+		break;
+
+		case 'q':
+			printf("\e[?25h");
+			exit(0);
+		break;
+
+		default:
+		break;
+	}
 }

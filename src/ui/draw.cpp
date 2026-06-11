@@ -50,7 +50,6 @@ void draw_layout(Layout layout){
 	draw_box(&layout.box_instructions);
 
 	draw_registers(&layout.box_registers);
-	draw_menu_options(&layout.menu);
 }
 
 void draw_titles(Layout *layout){
@@ -97,24 +96,17 @@ void draw_registers(Rect *box_registers){
 	}
 }
 
-void draw_menu_options(Rect *box_menu){
-	const char *menu_options[] = {"Step",
-								  "Run",
-								  "Reset",
-								  "Set INA",
-								  "Set DIP",
-								  "Exit"};
-	int arr_len = sizeof(menu_options) / sizeof(menu_options[0]);
+void draw_menu_options(Menu *menu, Rect *box_menu){
 
-	for(int i = 0; i < arr_len; i++){
+	for(int i = 0; i < menu -> arr_len; i++){
 		gotoxy(box_menu -> x + 4, i + box_menu -> y + 1);
-		printf("%s", menu_options[i]);
+		printf("%s", menu -> menu_options[i]);
 	}
 }
 
 //Funcion para imprimir en la tui los valores
 // del cpu
-void draw_cpu(CPU *cpu, Rect *box_registers_value){
+void draw_cpu(cpu::CPU *cpu, Rect *box_registers_value){
 
 	int offset = 2;
 
@@ -154,7 +146,7 @@ void draw_cpu(CPU *cpu, Rect *box_registers_value){
 #define C_FLAG 2
 #define CZ_FLAG 3
 
-void draw_flags(CPU *cpu, Rect *box_registers_value){
+void draw_flags(cpu::CPU *cpu, Rect *box_registers_value){
 
 	if(cpu -> flags == NO_FLAG){
 		gotoxy(box_registers_value->x + 2, box_registers_value->y + 1);

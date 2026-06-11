@@ -4,16 +4,16 @@
 #include "../include/rom.hpp"
 #include <iostream>
 
-void execute_instruction(CPU *cpu){
+void execute_instruction(cpu::CPU *cpu){
 
     switch(cpu->opcode){
         case static_cast<uint8_t>(Instruction::NOT):
         break;
         case static_cast<uint8_t>(Instruction::NAND):
-            cpu->acc = nand(&cpu->acc, &cpu->rom_buffer, &cpu->flags);
+            cpu->acc = cpu::nand(&cpu->acc, &cpu->rom_buffer, &cpu->flags);
         break;
         case static_cast<uint8_t>(Instruction::ADD):
-            cpu->acc = add(&cpu->acc, &cpu->rom_buffer, &cpu->flags);
+            cpu->acc = cpu::add(&cpu->acc, &cpu->rom_buffer, &cpu->flags);
         break;
         case static_cast<uint8_t>(Instruction::LDA):
             cpu->acc = cpu->rom_buffer;
@@ -60,7 +60,7 @@ void execute_instruction(CPU *cpu){
     }
 }
 
-void fetch_cycle(CPU *cpu, ROM *rom){
+void fetch_cycle(cpu::CPU *cpu, ROM *rom){
         rom->address = cpu->pc;
         cpu->rom_buffer = (rom->program_instructions[rom->address] & 0x0F);
         cpu->opcode = rom->program_instructions[rom->address] >> 4;
