@@ -14,7 +14,7 @@ imprimir cosas en la salida estandar
 
 void clear_screen(void);
 void draw_box(Rect *rect);
-void draw_layout(Layout);
+void draw_layout(Layout*);
 
 void draw_titles(Layout*);
 void draw_title_center(Rect*, char*);
@@ -28,4 +28,6 @@ void draw_instructions(ROM*, Layout*);
 void draw_io_devices_values(IO_Devices*);
 void draw_instruction_pointer(ROM*, Layout*);
 void draw_cursor(Menu*, Rect*);
-void draw_program_path(char*, Rect*);
+void draw_program_path(Layout*);
+void draw_tui(Layout*);
+

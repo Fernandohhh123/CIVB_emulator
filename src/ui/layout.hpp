@@ -17,6 +17,8 @@ struct Layout{
 
 	Rect box_instructions;
 	Rect box_instructions_title;
+
+	char *program_path;
 };
 
 //esta funcion crea la main_box

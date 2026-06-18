@@ -41,17 +41,17 @@ void draw_box(Rect *rect){
 	gotoxy(rect->x + rect->w - 1, rect->y + rect->h - 1); printf("+");
 }
 
-void draw_layout(Layout layout){
-	draw_box(&layout.main_box);
-	draw_box(&layout.menu);
-	draw_box(&layout.box_title);
-	draw_box(&layout.box_registers_title);
-	draw_box(&layout.box_registers);
-	draw_box(&layout.box_instructions_title);
-	draw_box(&layout.box_value_registers);
-	draw_box(&layout.box_instructions);
+void draw_layout(Layout *layout){
+	draw_box(&layout -> main_box);
+	draw_box(&layout -> menu);
+	draw_box(&layout -> box_title);
+	draw_box(&layout -> box_registers_title);
+	draw_box(&layout -> box_registers);
+	draw_box(&layout -> box_instructions_title);
+	draw_box(&layout -> box_value_registers);
+	draw_box(&layout -> box_instructions);
 
-	draw_registers(&layout.box_registers);
+	draw_registers(&layout -> box_registers);
 }
 
 void draw_titles(Layout *layout){
@@ -212,7 +212,15 @@ void draw_instruction_pointer(ROM *rom, Layout *layout){
 	printf("<");
 }
 
-void draw_program_path(char *path, Rect *main_box){
-    gotoxy(0, main_box -> h);
-    printf("Program: %s", path);
+void draw_program_path(Layout *layout){
+    gotoxy(0, layout -> main_box.h);
+    printf("Program: %s", layout -> program_path);
+}
+
+void draw_tui(Layout *layout){
+	clear_screen();
+	draw_layout(layout);
+	draw_titles(layout);
+    draw_program_path(layout);
+
 }

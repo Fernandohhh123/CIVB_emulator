@@ -19,6 +19,9 @@ struct Menu{
 	Menu_Cursor cursor;
 	uint8_t option = 0;
 	uint8_t state = 0;
+
+	uint8_t draw_all = 0;
+
 	std::vector <std::string_view> menu_options = {"Step",
 												   "Run",
 												   "Reset",

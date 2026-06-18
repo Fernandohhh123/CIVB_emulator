@@ -29,6 +29,7 @@
 
 void main_loop(cpu::CPU*, ROM*, Layout*);
 void process_input(Menu*, char);
+void print_help(void);
 
 int main(int argc, char *argv[]){
 
@@ -41,10 +42,9 @@ int main(int argc, char *argv[]){
 	get_arguments(&arguments, &argc, argv);
 	load_program_to_rom(&rom, arguments.program_path);
 
-	clear_screen();
-	draw_layout(layout);
-	draw_titles(&layout);
-    draw_program_path(arguments.program_path, &layout.main_box);
+	layout.program_path = arguments.program_path;
+
+	draw_tui(&layout);
 
     cpu::reset(&cpu);
 	rom.address = cpu.pc;
@@ -66,9 +66,17 @@ void main_loop(cpu::CPU *cpu, ROM *rom, Layout *layout){
 	IO_Devices devices;
 	Menu menu;
 
-    draw_menu_options(&menu, &layout->menu);
+	draw_menu_options(&menu, &layout->menu);
 
     while(1){
+
+		if(menu.draw_all != 0){
+
+			draw_tui(layout);
+    		draw_menu_options(&menu, &layout->menu);
+
+			menu.draw_all = 0;
+		}
 
 		// Imprimimos los datos del cpu
 		draw_cpu(cpu, &layout->box_value_registers);
@@ -150,7 +158,33 @@ void process_input(Menu *menu, char key){
 			exit(0);
 		break;
 
+		case 'h':
+			print_help();
+			menu -> draw_all = 1;
+		break;
+
 		default:
 		break;
 	}
 }
+
+void print_help(void){
+	clear_screen();
+
+	gotoxy(0, 0);
+
+	printf("# Ayuda #");
+
+	printf("\n");
+
+	printf("Moverse por el menu\n");
+	printf("K - Arriba\n");
+	printf(" L - Seleccionar\n");
+	printf("J - Abajo\n");
+	
+	printf("\n");
+
+	printf("Pulse <Enter> para continuar...");
+	getchar();
+}
+
