@@ -27,3 +27,4 @@ void draw_instructions_address(ROM*, Layout*);
 void draw_instructions(ROM*, Layout*);
 void draw_io_devices_values(IO_Devices*);
 void draw_instruction_pointer(ROM*, Layout*);
+void draw_cursor(Menu*, Rect*);

@@ -5,6 +5,8 @@ imprimir cosas en la salida estandar
 
 #include <stdio.h>
 #include <string.h>
+#include <iostream>
+
 #include "draw.hpp"
 #include "gotoxy.hpp"
 
@@ -98,10 +100,21 @@ void draw_registers(Rect *box_registers){
 
 void draw_menu_options(Menu *menu, Rect *box_menu){
 
-	for(int i = 0; i < menu -> arr_len; i++){
-		gotoxy(box_menu -> x + 4, i + box_menu -> y + 1);
-		printf("%s", menu -> menu_options[i]);
-	}
+    for(int i = 0; i < menu -> arr_len; i++){
+        gotoxy(box_menu -> x + 4, i + box_menu -> y + 1);
+        std::cout << menu -> menu_options[i];
+    }
+}
+
+void draw_cursor(Menu *menu, Rect *box_menu){
+    // Limpiamos el area del cursor
+    for(int i = 0; i < menu -> arr_len; i++){
+        gotoxy(box_menu -> x + 2, (box_menu -> y + 1) + i);
+        printf("  ");
+    }
+
+    gotoxy(box_menu -> x + 2, (box_menu -> y + 1) + menu -> option);
+    printf(">");
 }
 
 //Funcion para imprimir en la tui los valores

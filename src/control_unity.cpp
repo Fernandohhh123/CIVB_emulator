@@ -37,19 +37,18 @@ void execute_instruction(cpu::CPU *cpu){
             cpu->acc = cpu->ra;
         break;
         case static_cast<uint8_t>(Instruction::JPI):
-            if(cpu->jmp == 1){
-                cpu->pc = cpu->rom_buffer;
-                cpu->pc = (cpu->rd & cpu->pc);
-            }
+            cpu->jmp = 1;
+            cpu->pc = (cpu->rom_buffer << 4);
+            cpu->pc = (cpu->rd | cpu->pc);
         break;
         case static_cast<uint8_t>(Instruction::JPC):
-            if(cpu->jmp == 2){
+            if(cpu->flags == 2){
                 cpu->pc = cpu->rom_buffer;
                 cpu->pc = (cpu->rd & cpu->pc);
             }
         break;
         case static_cast<uint8_t>(Instruction::JPZ):
-            if(cpu->jmp == 4){
+            if(cpu->flags == 4){
                 cpu->pc = cpu->rom_buffer;
                 cpu->pc = (cpu->rd & cpu->pc);
             }
@@ -58,6 +57,7 @@ void execute_instruction(cpu::CPU *cpu){
     if(cpu->jmp == 0){
 		++ cpu->pc;
     }
+    cpu -> jmp = 0;
 }
 
 void fetch_cycle(cpu::CPU *cpu, ROM *rom){

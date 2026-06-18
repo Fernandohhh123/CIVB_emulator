@@ -2,16 +2,21 @@
 #include <cstdio>
 #include <iomanip>
 #include <stdio.h>
+#include <thread>
+#include <chrono>
+
 #include "../include/cpu.hpp"
 #include "../include/rom.hpp"
 #include "../include/argument_parser.hpp"
 #include "../include/control_unity.hpp"
 #include "../include/io_devices.hpp"
 #include "../include/kbhit.hpp"
+
 #include "ui/menu.hpp"
 #include "ui/rect.hpp"
 #include "ui/draw.hpp"
 #include "ui/layout.hpp"
+#include "ui/gotoxy.hpp"
 
 //ciclo fetch
 //pc -> rom
@@ -60,7 +65,7 @@ void main_loop(cpu::CPU *cpu, ROM *rom, Layout *layout){
 	IO_Devices devices;
 	Menu menu;
 
-    char key = 0;
+    draw_menu_options(&menu, &layout->menu);
 
     while(1){
 
@@ -69,16 +74,46 @@ void main_loop(cpu::CPU *cpu, ROM *rom, Layout *layout){
 		draw_instructions_address(rom, layout);
 		draw_instructions(rom, layout);
 		draw_instruction_pointer(rom, layout);
+        draw_cursor(&menu, &layout -> menu);
 
 		if(kbhit()){
 			process_input(&menu, getchar());
 		}
 
-        // Ciclo fetch del cpu
-        fetch_cycle(cpu, rom);
+        switch(menu.state){
 
-        // Ejecutamos la instruccion
-        execute_instruction(cpu);
+            case STATE_STEP:
+                // Ciclo fetch del cpu
+                fetch_cycle(cpu, rom);
+
+                // Ejecutamos la instruccion
+                execute_instruction(cpu);
+            break;
+
+            case STATE_RUN:
+                // Ciclo fetch del cpu
+                fetch_cycle(cpu, rom);
+
+                // Ejecutamos la instruccion
+                execute_instruction(cpu);
+            break;
+
+            case STATE_EXIT:
+                gotoxy(0, 0);
+                printf("\e[?25h");
+                clear_screen();
+                exit(0);
+            break;
+        }
+
+        if(menu.state == STATE_STEP){
+            menu.state = 0;
+        }
+
+        //delay de 100ms
+        std::this_thread::sleep_for(
+            std::chrono::milliseconds(10)
+        );
 
     } // while
 } // main_loop
@@ -94,7 +129,7 @@ void process_input(Menu *menu, char key){
 		break;
 
 		case 'l':
-			// procesamos la opcion
+			menu -> state = menu -> option + 1;
 		break;
 
 		case 's':
