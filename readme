@@ -25,6 +25,18 @@ Tanto el CPU original como el emulador ejecutan binarios planos
 
 -h | --help			Muestra nformacion de ayuda
 
+# Como usar #
+
+- Para moverse por el menu use las teclas:
+	J Arriba
+	K Abajo
+	L Seleccionar
+
+- El emulador tiene atajos:
+	S Step
+	R Reset
+	Q Salir
+	H Ayuda
 
  # Como compilar #
 
