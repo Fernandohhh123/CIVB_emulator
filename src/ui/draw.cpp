@@ -203,9 +203,16 @@ void draw_instructions(ROM *rom, Layout *layout){
 
 void draw_instruction_pointer(ROM *rom, Layout *layout){
 
-	gotoxy(layout -> box_instructions.x + 11, layout -> box_instructions.y + rom -> address);
-	printf(" ");
+    for(int i = 1; i < layout -> box_instructions.h - 1; i++){
+    	gotoxy(layout -> box_instructions.x + 11, layout -> box_instructions.y + i);
+    	printf(" ");
+    }
 
 	gotoxy(layout -> box_instructions.x + 11, layout -> box_instructions.y + rom -> address + 1);
 	printf("<");
+}
+
+void draw_program_path(char *path, Rect *main_box){
+    gotoxy(0, main_box -> h);
+    printf("Program: %s", path);
 }

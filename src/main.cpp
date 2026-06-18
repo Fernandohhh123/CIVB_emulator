@@ -44,6 +44,7 @@ int main(int argc, char *argv[]){
 	clear_screen();
 	draw_layout(layout);
 	draw_titles(&layout);
+    draw_program_path(arguments.program_path, &layout.main_box);
 
     cpu::reset(&cpu);
 	rom.address = cpu.pc;
@@ -96,6 +97,10 @@ void main_loop(cpu::CPU *cpu, ROM *rom, Layout *layout){
 
                 // Ejecutamos la instruccion
                 execute_instruction(cpu);
+            break;
+
+            case STATE_RESET:
+                cpu::reset(cpu);
             break;
 
             case STATE_EXIT:

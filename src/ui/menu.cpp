@@ -1,9 +1,14 @@
 #include "menu.hpp"
 
 void next_option(Menu *menu){
-	menu -> cursor.y += 1;
+    if(menu -> option < menu -> arr_len - 1){
+        ++ menu -> cursor.y;
+        ++ menu -> option;
+    }
 }
 
 void prev_option(Menu *menu){
-	menu -> cursor.y -= 1;
+	if(menu -> option > 0){
+        -- menu -> option;
+    }
 }
