@@ -222,5 +222,11 @@ void draw_tui(Layout *layout){
 	draw_layout(layout);
 	draw_titles(layout);
     draw_program_path(layout);
-
+	draw_help_suggest(layout);
 }
+
+void draw_help_suggest(Layout *layout){
+	gotoxy(0, layout -> main_box.h + 2);
+	printf("<H> Mostrar ayuda");
+}
+

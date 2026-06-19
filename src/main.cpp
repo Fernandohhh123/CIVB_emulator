@@ -178,9 +178,9 @@ void print_help(void){
 	printf("\n");
 
 	printf("Moverse por el menu\n");
-	printf("K - Arriba\n");
-	printf(" L - Seleccionar\n");
-	printf("J - Abajo\n");
+	printf("<K> - Arriba\n");
+	printf(" <L> - Seleccionar\n");
+	printf("<J> - Abajo\n");
 	
 	printf("\n");
 

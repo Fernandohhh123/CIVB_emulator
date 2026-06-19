@@ -1,4 +1,5 @@
 #include "menu.hpp"
+#include "../../include/cpu.hpp"
 
 void next_option(Menu *menu){
     if(menu -> option < menu -> arr_len - 1){
@@ -12,3 +13,10 @@ void prev_option(Menu *menu){
         -- menu -> option;
     }
 }
+
+namespace menu_dip{
+	void set(cpu::CPU*){
+
+	}
+}
+

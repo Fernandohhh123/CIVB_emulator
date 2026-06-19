@@ -9,7 +9,7 @@ Layout create_layout(int h, int w){
 	//comienzo en x, comienzo en y, altura, anchura
 
 	layout.main_box = {start_layout_x, start_layout_y, h, w};
-	layout.menu = {layout.main_box.w, start_layout_y, h, 20};
+	layout.menu = {layout.main_box.w, start_layout_y, h, 16};
 
 	layout.box_title = {start_layout_x, start_layout_y, 3, w};
 
