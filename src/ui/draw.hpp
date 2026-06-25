@@ -31,4 +31,4 @@ void draw_cursor(Menu*, Rect*);
 void draw_program_path(Layout*);
 void draw_help_suggest(Layout*);
 void draw_tui(Layout*);
-
+void draw_dip(uint8_t*, Rect*);

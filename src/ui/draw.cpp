@@ -230,3 +230,7 @@ void draw_help_suggest(Layout *layout){
 	printf("<H> Mostrar ayuda");
 }
 
+void draw_dip(uint8_t *dip, Rect *box_registers){
+    gotoxy(box_registers -> x + 2, box_registers -> y + 2);
+    printf("%02x", *dip);
+}

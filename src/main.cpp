@@ -66,7 +66,10 @@ void main_loop(cpu::CPU *cpu, ROM *rom, Layout *layout){
 	IO_Devices devices;
 	Menu menu;
 
+    devices.dip_pc = 0;
+
 	draw_menu_options(&menu, &layout->menu);
+    draw_dip(&devices.dip_pc, &layout -> box_value_registers);
 
     while(1){
 
@@ -74,6 +77,7 @@ void main_loop(cpu::CPU *cpu, ROM *rom, Layout *layout){
 
 			draw_tui(layout);
     		draw_menu_options(&menu, &layout->menu);
+            draw_dip(&devices.dip_pc, &layout -> box_value_registers);
 
 			menu.draw_all = 0;
 		}
@@ -93,7 +97,7 @@ void main_loop(cpu::CPU *cpu, ROM *rom, Layout *layout){
 
             case STATE_STEP:
                 // Ciclo fetch del cpu
-                fetch_cycle(cpu, rom);
+                fetch_cycle(cpu, rom, &devices.dip_pc);
 
                 // Ejecutamos la instruccion
                 execute_instruction(cpu);
@@ -101,7 +105,7 @@ void main_loop(cpu::CPU *cpu, ROM *rom, Layout *layout){
 
             case STATE_RUN:
                 // Ciclo fetch del cpu
-                fetch_cycle(cpu, rom);
+                fetch_cycle(cpu, rom, &devices.dip_pc);
 
                 // Ejecutamos la instruccion
                 execute_instruction(cpu);
@@ -111,6 +115,16 @@ void main_loop(cpu::CPU *cpu, ROM *rom, Layout *layout){
                 cpu::reset(cpu);
             break;
 
+            case STATE_SET_INA:
+                menu_ina::set(&cpu -> ina);
+                menu.draw_all = 1;
+            break;
+
+			case STATE_SET_DIP:
+				menu_dip::set(&devices.dip_pc);
+				menu.draw_all = 1;
+			break;
+
             case STATE_EXIT:
                 gotoxy(0, 0);
                 printf("\e[?25h");
@@ -119,7 +133,7 @@ void main_loop(cpu::CPU *cpu, ROM *rom, Layout *layout){
             break;
         }
 
-        if(menu.state == STATE_STEP){
+        if(menu.state != STATE_RUN){
             menu.state = 0;
         }
 
@@ -181,7 +195,7 @@ void print_help(void){
 	printf("<K> - Arriba\n");
 	printf(" <L> - Seleccionar\n");
 	printf("<J> - Abajo\n");
-	
+
 	printf("\n");
 
 	printf("Pulse <Enter> para continuar...");

@@ -33,3 +33,11 @@ struct Menu{
 
 void next_option(Menu*);
 void prev_option(Menu*);
+
+namespace menu_dip {
+	void set(uint8_t*);
+}
+
+namespace menu_ina {
+    void set(uint8_t*);
+}

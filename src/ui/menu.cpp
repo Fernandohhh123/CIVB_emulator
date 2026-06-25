@@ -1,5 +1,10 @@
 #include "menu.hpp"
 #include "../../include/cpu.hpp"
+#include "draw.hpp"
+#include "gotoxy.hpp"
+
+#include <iostream>
+#include <stdio.h>
 
 void next_option(Menu *menu){
     if(menu -> option < menu -> arr_len - 1){
@@ -15,8 +20,33 @@ void prev_option(Menu *menu){
 }
 
 namespace menu_dip{
-	void set(cpu::CPU*){
 
-	}
+    void set(uint8_t *dip){
+        clear_screen();
+
+        gotoxy(0, 0);
+
+        std::cout << "Input DIP: ";
+
+        scanf("%hhd", dip);
+
+        // *dip = num;
+    }
 }
 
+namespace menu_ina {
+
+    void set(uint8_t *ina){
+        clear_screen();
+
+        gotoxy(0, 0);
+
+        std::cout << "Input INA: ";
+
+        scanf("%hhd", ina);
+
+        *ina = *ina & 15;
+
+//        *ina = num;
+    }
+}

@@ -50,20 +50,23 @@ void execute_instruction(cpu::CPU *cpu){
         break;
         case static_cast<uint8_t>(Instruction::JPZ):
             if(cpu->flags == 4){
-				cpu -> jmp = 1;
+                cpu -> jmp = 1;
                 cpu->pc = cpu->rom_buffer;
                 cpu->pc = (cpu->rd & cpu->pc);
             }
         break;
     }
     if(cpu->jmp == 0){
-		++ cpu->pc;
+        ++ cpu->pc;
     }
     cpu -> jmp = 0;
 }
 
-void fetch_cycle(cpu::CPU *cpu, ROM *rom){
+void fetch_cycle(cpu::CPU *cpu, ROM *rom, uint8_t *dip){
         rom->address = cpu->pc;
+
+        rom -> address = rom -> address | (*dip << 8);
+
         cpu->rom_buffer = (rom->program_instructions[rom->address] & 0x0F);
         cpu->opcode = rom->program_instructions[rom->address] >> 4;
 }
