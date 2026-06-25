@@ -198,6 +198,13 @@ void print_help(void){
 
 	printf("\n");
 
+    printf("Atajos\n");
+    printf("<S> Step\n");
+    printf("<R> Reset\n");
+    printf("<Q> Salir\n");
+
+    printf("\n");
+
 	printf("Pulse <Enter> para continuar...");
 	getchar();
 }
