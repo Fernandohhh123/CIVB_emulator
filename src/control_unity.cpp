@@ -44,15 +44,15 @@ void execute_instruction(cpu::CPU *cpu){
         case static_cast<uint8_t>(Instruction::JPC):
             if(cpu->flags == 2){
 				cpu -> jmp = 1;
-                cpu->pc = cpu->rom_buffer;
-                cpu->pc = (cpu->rd & cpu->pc);
+                cpu->pc = (cpu->rom_buffer << 4);
+                cpu->pc = (cpu->rd | cpu->pc);
             }
         break;
         case static_cast<uint8_t>(Instruction::JPZ):
             if(cpu->flags == 4){
                 cpu -> jmp = 1;
-                cpu->pc = cpu->rom_buffer;
-                cpu->pc = (cpu->rd & cpu->pc);
+                cpu->pc = (cpu->rom_buffer << 4);
+                cpu->pc = (cpu->rd | cpu->pc);
             }
         break;
     }

@@ -30,7 +30,7 @@ namespace menu_dip{
 
         scanf("%hhd", dip);
 
-        // *dip = num;
+        *dip = *dip & 31;
     }
 }
 
@@ -46,7 +46,5 @@ namespace menu_ina {
         scanf("%hhd", ina);
 
         *ina = *ina & 15;
-
-//        *ina = num;
     }
 }
