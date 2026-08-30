@@ -1,11 +1,13 @@
 El disenno original del CPU esta basado en el trabajo de
-[Alejabdro Alomar / Computadora de 4 Bits]
+[Agustín Hernández / Computadora de 4 Bits]
 https://tallerelectronica.com/2018/06/19/microprocesador-basico-de-4-bits/
 
 Este proyecto es una emulacion lo mas fiel posible al diseño
 fisico del CPU
 
-Este software es desarollado por Fernando Hernandez Valverdes
+Este software es desarollado por Fernando Hernandez Valverde
+
+Este software esta desarrollado solo para GNU/Linux x86_64
 
 Caracteristicas del software
 - Emulador del CPU
