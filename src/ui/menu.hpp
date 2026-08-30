@@ -14,6 +14,8 @@ struct Menu_Cursor{
 #define STATE_SET_INA 4
 #define STATE_SET_DIP 5
 #define STATE_EXIT 6
+#define STATE_SCROLL_DOWN 7
+#define STATE_SCROLL_UP 8
 
 struct Menu{
 	Menu_Cursor cursor;

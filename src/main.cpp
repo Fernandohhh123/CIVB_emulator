@@ -71,6 +71,9 @@ void main_loop(cpu::CPU *cpu, ROM *rom, Layout *layout){
 	draw_menu_options(&menu, &layout->menu);
     draw_dip(&devices.dip_pc, &layout -> box_value_registers);
 
+	// esta variable es auxiliar para hacer scroll en las instrucciones
+	uint32_t instructions_offset = 0;
+
     while(1){
 
 		if(menu.draw_all != 0){
@@ -82,9 +85,10 @@ void main_loop(cpu::CPU *cpu, ROM *rom, Layout *layout){
 			menu.draw_all = 0;
 		}
 
+
 		// Imprimimos los datos del cpu
 		draw_cpu(cpu, &layout->box_value_registers);
-		draw_instructions_address(rom, layout);
+		draw_instructions_address(rom, layout, instructions_offset) ;
 		draw_instructions(rom, layout);
 		draw_instruction_pointer(rom, layout);
         draw_cursor(&menu, &layout -> menu);
@@ -131,6 +135,19 @@ void main_loop(cpu::CPU *cpu, ROM *rom, Layout *layout){
                 clear_screen();
                 exit(0);
             break;
+
+			case STATE_SCROLL_DOWN:
+				++ instructions_offset;
+			break;
+
+			case STATE_SCROLL_UP:
+				if (instructions_offset > 0){
+					-- instructions_offset;
+				}
+			break;
+
+			default:
+			break;
         }
 
         if(menu.state != STATE_RUN){
@@ -177,6 +194,14 @@ void process_input(Menu *menu, char key){
 			menu -> draw_all = 1;
 		break;
 
+		case 'n':
+			menu -> state = STATE_SCROLL_UP; 
+		break;
+
+		case 'm':
+			menu -> state = STATE_SCROLL_DOWN; 
+		break;
+
 		default:
 		break;
 	}
@@ -201,7 +226,9 @@ void print_help(void){
     printf("Atajos\n");
     printf("<S> Step\n");
     printf("<R> Reset\n");
-    printf("<Q> Salir\n");
+    printf("<N> Scroll up\n"); 
+    printf("<M> Scroll down\n");
+	printf("<Q> Salir\n");
 
     printf("\n");
 

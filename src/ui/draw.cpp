@@ -179,14 +179,14 @@ void draw_flags(cpu::CPU *cpu, Rect *box_registers_value){
 	}
 }
 
-void draw_instructions_address(ROM *rom, Layout *layout){
-	int offset = 1;
-	//gotoxy(layout->box_instructions.x + 2, layout->box_instructions.y + offset);
+void draw_instructions_address(ROM *rom, Layout *layout, uint32_t scroll_offset){
+	int offset_layout = 1;
+	//gotoxy(layout->box_instructions.x + 2, layout->box_instructions.y + offset_layout);
 
 	for(int i = 0; i < (layout -> box_instructions.h - 2); i++){
-		gotoxy(layout->box_instructions.x + 2, layout->box_instructions.y + offset);
-		printf("%04X", i);
-		++ offset;
+		gotoxy(layout->box_instructions.x + 2, layout->box_instructions.y + offset_layout);
+		printf("%04X", i + scroll_offset);
+		++ offset_layout;
 	}
 }
 
