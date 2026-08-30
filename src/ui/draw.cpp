@@ -190,13 +190,13 @@ void draw_instructions_address(ROM *rom, Layout *layout, uint32_t scroll_offset)
 	}
 }
 
-void draw_instructions(ROM *rom, Layout *layout){
+void draw_instructions(ROM *rom, Layout *layout, uint32_t scroll_offset){
 	int offset = 1;
 	//gotoxy(layout->box_instructions.x + 8, layout->box_instructions.y + offset);
 
 	for(int i = 0; i < (layout -> box_instructions.h - 2); i++){
 		gotoxy(layout->box_instructions.x + 8, layout->box_instructions.y + offset);
-		printf("%02X", rom -> program_instructions[i]);
+		printf("%02X", rom -> program_instructions[i + scroll_offset]);
 		++ offset;
 	}
 }

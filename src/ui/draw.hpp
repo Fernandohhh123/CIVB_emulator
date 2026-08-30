@@ -24,7 +24,7 @@ void draw_menu_options(Menu*, Rect*);
 void draw_cpu(cpu::CPU*, Rect*);
 void draw_flags(cpu::CPU*, Rect*);
 void draw_instructions_address(ROM*, Layout*, uint32_t scroll_offset);
-void draw_instructions(ROM*, Layout*);
+void draw_instructions(ROM*, Layout*, uint32_t scroll_offset);
 void draw_io_devices_values(IO_Devices*);
 void draw_instruction_pointer(ROM*, Layout*);
 void draw_cursor(Menu*, Rect*);
