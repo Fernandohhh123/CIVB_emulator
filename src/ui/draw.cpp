@@ -107,7 +107,8 @@ void draw_menu_options(Menu *menu, Rect *box_menu){
 }
 
 void draw_cursor(Menu *menu, Rect *box_menu){
-    // Limpiamos el area del cursor
+    
+	// Limpiamos el area del cursor
     for(int i = 0; i < menu -> arr_len; i++){
         gotoxy(box_menu -> x + 2, (box_menu -> y + 1) + i);
         printf("  ");
@@ -201,14 +202,23 @@ void draw_instructions(ROM *rom, Layout *layout, uint32_t scroll_offset){
 	}
 }
 
-void draw_instruction_pointer(ROM *rom, Layout *layout){
-
+void draw_instruction_pointer(ROM *rom, Layout *layout, uint32_t scroll_offset){
+	// Lmpiamos el espacio del cursor de instrucciones
     for(int i = 1; i < layout -> box_instructions.h - 1; i++){
     	gotoxy(layout -> box_instructions.x + 11, layout -> box_instructions.y + i);
     	printf(" ");
     }
 
-	gotoxy(layout -> box_instructions.x + 11, layout -> box_instructions.y + rom -> address + 1);
+	// Verificamos que el cursor este en una posicion valida
+	if((layout -> box_instructions.y + ((rom -> address + 1) - scroll_offset)) <= layout -> box_instructions.y){
+		return;
+	}
+	if((layout -> box_instructions.y + ((rom -> address + 1) - scroll_offset)) > layout -> box_instructions.h){
+		return;
+	}
+
+	// Imprimimos la nueva posicion del cursor
+	gotoxy(layout -> box_instructions.x + 11, layout -> box_instructions.y + ((rom -> address + 1) - scroll_offset));
 	printf("<");
 }
 

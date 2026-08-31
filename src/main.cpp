@@ -90,7 +90,7 @@ void main_loop(cpu::CPU *cpu, ROM *rom, Layout *layout){
 		draw_cpu(cpu, &layout->box_value_registers);
 		draw_instructions_address(rom, layout, instructions_offset) ;
 		draw_instructions(rom, layout, instructions_offset);
-		draw_instruction_pointer(rom, layout);
+		draw_instruction_pointer(rom, layout, instructions_offset);
         draw_cursor(&menu, &layout -> menu);
 
 		if(kbhit()){
