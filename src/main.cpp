@@ -1,3 +1,24 @@
+/*
+civb - TUI based 4 bit cpu emulator
+
+    Copyright (C) 2026 Fernando Hernández Valverde
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+    contact: fernandohdzvalverde@gmail.com
+*/
+
 #include <iostream>
 #include <cstdio>
 #include <iomanip>
@@ -30,8 +51,12 @@
 void main_loop(cpu::CPU*, ROM*, Layout*);
 void process_input(Menu*, char);
 void print_help(void);
+void print_information(void);
+
 
 int main(int argc, char *argv[]){
+
+    print_information();
 
     cpu::CPU cpu;
     ROM rom;
@@ -234,5 +259,12 @@ void print_help(void){
 
 	printf("Pulse <Enter> para continuar...");
 	getchar();
+}
+
+void print_information(void){
+  printf("civb emulator  Copyright (C) 2026  Fernando Hernández Valverde \n\
+    This program comes with ABSOLUTELY NO WARRANTY.\n\
+    This is free software, and you are welcome to redistribute it\n\
+    under certain conditions.\n\n");
 }
 
