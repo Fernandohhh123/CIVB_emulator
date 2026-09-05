@@ -22,6 +22,7 @@ civb - TUI based 4 bit cpu emulator
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "../include/argument_parser.hpp"
 
 void get_arguments(Arguments *arguments, int *argc, char *argv[]){
@@ -31,9 +32,9 @@ void get_arguments(Arguments *arguments, int *argc, char *argv[]){
 	}
 
 	if(*argc < 1){
-		perror("Faltan argumentos.");
-		printf("Use <-h | --help> para obtener ayuda.\n");
-		exit(1);
+		fprintf(stderr, "Faltan argumentos.");
+		fprintf(stderr, "Use <-h | --help> para obtener ayuda.\n");
+		exit(EXIT_FAILURE);
 	}
 
 	init_arguments(arguments);
@@ -43,9 +44,9 @@ void get_arguments(Arguments *arguments, int *argc, char *argv[]){
 		if((strcmp("--program", argv[i]) == 0) || (strcmp("-p", argv[i]) == 0)){
             i++;
 			if(argv[i] == NULL){
-				perror("No se especifico ruta del programa.\n");
-				perror("Modo de uso: -p <ruta/al/programa.bin>.\n");
-				exit(1);
+				fprintf(stderr, "No se especifico ruta del programa.\n");
+				fprintf(stderr, "Modo de uso: -p <ruta/al/programa.bin>.\n");
+				exit(EXIT_FAILURE);
 			}
 
             arguments->program_path = argv[i];
@@ -80,7 +81,7 @@ void get_arguments(Arguments *arguments, int *argc, char *argv[]){
         else{
 			printf("Argumento: '%s' invalido.\n", argv[i]);
 			printf("Use <-h | --help> para obtener ayuda.\n");
-			exit(1);
+			exit(EXIT_FAILURE);
         }
     }
 }

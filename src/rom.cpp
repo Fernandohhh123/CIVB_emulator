@@ -22,6 +22,7 @@ civb - TUI based 4 bit cpu emulator
 #include <fstream>
 #include <iostream>
 #include <cstdint>
+#include <stdlib.h>
 #include "../include/rom.hpp"
 #include "../include/argument_parser.hpp"
 
@@ -35,8 +36,8 @@ void load_program_to_rom(ROM *rom, char *program_path){
 	FILE *program_code = fopen(program_path, "rb");
 
 	if(program_code == NULL){
-		perror("Archivo de programa vacio.\n");
-		perror("Use <-h | --help> para obtener ayuda.\n");
+		fprintf(stderr, "Archivo de programa vacio.\n");
+		fprintf(stderr, "Use <-h | --help> para obtener ayuda.\n");
 		exit(1);
 	}
 
