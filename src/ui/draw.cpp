@@ -234,7 +234,7 @@ void draw_instruction_pointer(ROM *rom, Layout *layout, uint32_t scroll_offset){
 	if((layout -> box_instructions.y + ((rom -> address + 1) - scroll_offset)) <= layout -> box_instructions.y){
 		return;
 	}
-	if((layout -> box_instructions.y + ((rom -> address + 1) - scroll_offset)) > layout -> box_instructions.h){
+	if((layout -> box_instructions.y + ((rom -> address + 1) - scroll_offset)) > 2 + layout -> box_instructions.h){
 		return;
 	}
 
