@@ -17,37 +17,51 @@
 #
 #    contact: fernandohdzvalverde@gmail.com
 
-COMPILER = g++
-COMPILERFLAGS = -std=c++17 -Wall -Wextra
-SRC = $(wildcard src/*.cpp) $(wildcard src/**/*.cpp)
-OBJ = $(patsubst %.cpp, obj/%.o, $(notdir $(SRC)))
-COMPILERFLAGSDEBUG = -g -std=c++17 -Wall -Wextra -linclude
-INSTALLPATH = /usr/bin/civb
-BINPATH = bin/civb
+# ------------------------------------------------------------------------
 
-VPATH = $(sort $(dir $(SRC)))
+CXX ?= g++
+CXXFLAGS ?= -std=c++17 -Wall -Wextra 
+COMPILERFLAGSDEBUG ?= -g -std=c++17 -Wall -Wextra -Include
+LDFLAGS ?=
 
-all: $(bin/civb)
+CXXFLAGS += $(RPM_OPT_FLAGS)
+
+SRCS := $(wildcard src/*.cpp) $(wildcard src/**/*.cpp)
+OBJ := $(patsubst %.cpp, obj/%.o, $(notdir $(SRCS)))
+
+INSTALLPATH ?= /usr/bin/civb
+TARGET := civb
+
+PREFIX ?= /usr/local
+BINDIR := $(PREFIX)/bin
+
+VPATH = $(sort $(dir $(SRCS)))
+
+all: $(TARGET)
 
 obj/%.o: %.cpp
 	mkdir -p obj
-	$(COMPILER) $(COMPILERFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-bin/civb: $(OBJ)
-	mkdir -p bin
-	$(COMPILER) $(OBJ) -o bin/civb
+$(TARGET): $(OBJ)
+	$(CXX) $(OBJ) -o $(TARGET) 
 
 .PHONY: clean
 clean:
-	rm -rf obj bin
+	rm -rf obj $(TARGET)
 
 .PHONY: debug
 debug:
 	mkdir -p debug
 	mkdir -p obj
-	$(COMPILER) $(COMPILERFLAGS) -c $< -o $@
-	$(COMPILER) $(COMPILERFLAGS) $(OBJ) -o debug/civb_debug
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(OBJ) -o debug/civb_debug
 
 .PHONY: install
-install:
-	cp bin/civb $(INSTALLPATH)
+install: $(TARGET)
+	install -d $(DESTDIR)$(BINDIR)
+	install -m 755 $(TARGET) $(DESTDIR)$(BINDIR)/$(TARGET)
+
+.PHONY: uninstall
+uninstall:
+	rm -rf $(DESTDIR)$(BINDIR)/$(TARGET)
