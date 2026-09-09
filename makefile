@@ -17,16 +17,17 @@
 #
 #    contact: fernandohdzvalverde@gmail.com
 
-
 COMPILER = g++
 COMPILERFLAGS = -std=c++17 -Wall -Wextra
 SRC = $(wildcard src/*.cpp) $(wildcard src/**/*.cpp)
 OBJ = $(patsubst %.cpp, obj/%.o, $(notdir $(SRC)))
 COMPILERFLAGSDEBUG = -g -std=c++17 -Wall -Wextra -linclude
+INSTALLPATH = /usr/bin/civb
+BINPATH = bin/civb
 
 VPATH = $(sort $(dir $(SRC)))
 
-all: bin/civb
+all: $(bin/civb)
 
 obj/%.o: %.cpp
 	mkdir -p obj
@@ -35,7 +36,6 @@ obj/%.o: %.cpp
 bin/civb: $(OBJ)
 	mkdir -p bin
 	$(COMPILER) $(OBJ) -o bin/civb
-
 
 .PHONY: clean
 clean:
@@ -47,3 +47,7 @@ debug:
 	mkdir -p obj
 	$(COMPILER) $(COMPILERFLAGS) -c $< -o $@
 	$(COMPILER) $(COMPILERFLAGS) $(OBJ) -o debug/civb_debug
+
+.PHONY: install
+install:
+	cp bin/civb $(INSTALLPATH)
