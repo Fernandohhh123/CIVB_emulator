@@ -17,8 +17,9 @@ civb - TUI based 4 bit cpu emulator
 
     contact: fernandohdzvalverde@gmail.com
 
+--- ESPAÑOL ---
 
-El diseño original del CPU esta basado en el trabajo de
+El emulador del CPU esta basado en el trabajo de
 [Agustín Hernández / Computadora de 4 Bits]
 https://tallerelectronica.com/2018/06/19/microprocesador-basico-de-4-bits/
 
@@ -35,9 +36,10 @@ Este software esta desarrollado solo para GNU/Linux x86_64
 Este emulador se escribio solo con c y c++ 17
 
 Simplemente use el makefile del proyecto.
-
 	$ make
 
+Para instalar el emulador use:
+	# make install
 
 
 Caracteristicas del software
@@ -73,4 +75,59 @@ Tanto el CPU original como el emulador ejecutan binarios planos
 	Q Salir
 	H Ayuda
 
+
+--- ENGLISH ---
+
+The emulator is bassed on the work of:
+[Agustín Hernández / Computadora de 4 Bits]
+https://tallerelectronica.com/2018/06/19/microprocesador-basico-de-4-bits/
+
+This project is an emulation that is as faithful possible to the
+physical deesign of the CPU
+
+This program is only developed only for GNU/Linux
+Este software esta desarrollado solo para GNU/Linux
+
+### HOW TO COMPILE ###
+
+This program was written in C y C++ 17
+
+Only use the
+	$ make
+
+To install the emulator just use:
+	# make install
+
+-- Software features --
+- CPU emulator
+- TUI
+- Memoria rom de programa
+- Menu paa interactuar con el mulador
+- Cargar programas personalizados
+- Loop de ejecucion
+
+ # How to use #
+
+Both the original cpu and the emulator execute flat binaries
+
+ Execute a flat binary:
+-p [program.bin] | --program [program.bin]
+
+-v | --version		Show the software version
+
+-h | --help			Show help
+
+# How to use #
+
+- To use the menu use the following keys:
+	J Arriba
+	K Abajo
+	L Seleccionar
+
+- The emulator has shortcuts:
+	S Step
+	R Reset
+	N, M Scroll
+	Q Quit
+	H Help
 
